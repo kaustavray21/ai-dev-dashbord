@@ -42,8 +42,8 @@ Deliver a working chat interface that can:
 
 ### Environment & Infrastructure
 
-#### [NEW] `backend/requirements/base.txt`
-Core Python dependencies shared across all environments.
+#### [NEW] `backend/requirements.txt`
+Core Python dependencies for the project.
 
 ```
 django>=5.0
@@ -52,26 +52,26 @@ psycopg2-binary>=2.9
 openai>=1.0
 django-cors-headers>=4.3
 djangorestframework-simplejwt>=5.3
-python-environ>=0.11
+django-environ>=0.11.2
 tiktoken>=0.7
 ruff>=0.4
-```
-
-#### [NEW] `backend/requirements/dev.txt`
-```
--r base.txt
 django-extensions>=3.2
 ipython
 ```
 
-#### [NEW] `backend/requirements/prod.txt`
-```
--r base.txt
-gunicorn>=21.2
-```
+#### Local PostgreSQL Setup (No Docker)
+PostgreSQL runs directly on the host machine. No Docker is used for local development.
 
-#### [NEW] `docker/docker-compose.yml`
-PostgreSQL service for local development. No Redis needed in Phase 1.
+```bash
+# Start PostgreSQL service
+sudo systemctl start postgresql
+
+# Create the database
+psql -U postgres -c "CREATE DATABASE ai_dashboard;"
+
+# Verify it exists
+psql -U postgres -c "\l" | grep ai_dashboard
+```
 
 #### [NEW] `.env.example`
 Template environment file — documents all required variables with safe placeholder values.
@@ -94,16 +94,16 @@ CORS_ALLOWED_ORIGINS=http://localhost:5173
 #### [NEW] `backend/manage.py`
 Standard Django entry point.
 
-#### [NEW] `backend/config/settings/base.py`
-Settings shared across all environments:
+#### [NEW] `backend/config/settings.py`
+Single settings file for all environments (local-only, no split):
+- `DEBUG = True` (set via env, defaults to `True`)
+- `CORS_ALLOW_ALL_ORIGINS = True` (local dev)
+- `EMAIL_BACKEND` set to console backend
 - Installed apps (all 6 custom apps + DRF + CORS + JWT)
 - Database config via `DATABASE_URL` from environment
 - JWT auth as the default DRF authentication class
 - `OPENAI_API_KEY` and `OPENAI_MODEL` loaded from env
 - `SANDBOX_DIR` loaded from env
-
-#### [NEW] `backend/config/settings/dev.py`
-Extends `base.py` with `DEBUG=True` and `CORS_ALLOW_ALL_ORIGINS=True`.
 
 #### [NEW] `backend/config/urls.py`
 Root URL config — routes to each app's `urls.py` under `/api/`.

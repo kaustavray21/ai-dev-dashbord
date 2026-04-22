@@ -8,36 +8,35 @@
 ## 🗂️ SECTION 0 — Environment & Project Bootstrap
 
 ### 0.1 System Prerequisites
-- [ ] Confirm Python ≥ 3.11 is installed (`python --version`)
-- [ ] Confirm Node.js ≥ 20 is installed (`node --version`)
-- [ ] Confirm PostgreSQL is running and accessible (`psql -U postgres -c "\l"`)
-- [ ] Confirm `git` is initialized in the project root (`git init`)
+- [x] Confirm Python ≥ 3.11 is installed (`python --version`)
+- [x] Confirm Node.js ≥ 20 is installed (`node --version`)
+- [x] Confirm PostgreSQL is running and accessible (`psql -U postgres -c "\l"`)
+- [x] Confirm `git` is initialized in the project root (`git init`)
 
 ### 0.2 Python Virtual Environment
-- [ ] Create virtual environment: `python -m venv venv`
-- [ ] Activate virtual environment: `source venv/bin/activate`
-- [ ] Create `backend/requirements/base.txt` with core packages
-- [ ] Create `backend/requirements/dev.txt` extending base
-- [ ] Create `backend/requirements/prod.txt` extending base
-- [ ] Install dev requirements: `pip install -r backend/requirements/dev.txt`
-- [ ] Freeze and verify install: `pip freeze | grep django`
+- [x] Create virtual environment: `python -m venv venv`
+- [x] Activate virtual environment: `source venv/bin/activate`
+- [x] Create `backend/requirements.txt` with all project dependencies
+- [x] Install requirements: `pip install -r backend/requirements.txt`
+- [x] Freeze and verify install: `pip freeze | grep django`
 
 ### 0.3 Environment Variables
-- [ ] Create `.env.example` with all required variable keys (no real values)
-- [ ] Copy to `.env`: `cp .env.example .env`
-- [ ] Fill in `.env` with real values:
-  - [ ] `SECRET_KEY` — generate with `python -c "from django.core.management.utils import get_random_secret_key; print(get_random_secret_key())"`
-  - [ ] `DATABASE_URL` — point to local PostgreSQL
-  - [ ] `OPENAI_API_KEY` — paste real key
-  - [ ] `OPENAI_MODEL` — set to `gpt-4o`
-  - [ ] `CORS_ALLOWED_ORIGINS` — set to `http://localhost:5173`
-- [ ] Add `.env` to `.gitignore` (verify it is ignored: `git status`)
+- [x] Create `.env.example` with all required variable keys (no real values)
+- [x] Copy to `.env`: `cp .env.example .env`
+- [x] Fill in `.env` with real values:
+  - [x] `SECRET_KEY` — generate with `python -c "from django.core.management.utils import get_random_secret_key; print(get_random_secret_key())"`
+  - [x] `DATABASE_URL` — point to local PostgreSQL
+  - [x] `OPENAI_API_KEY` — paste real key
+  - [x] `OPENAI_MODEL` — set to `gpt-4o`
+  - [x] `CORS_ALLOWED_ORIGINS` — set to `http://localhost:5173`
+- [x] Add `.env` to `.gitignore` (verify it is ignored: `git status`)
 
-### 0.4 Docker / Database Setup
-- [ ] Create `docker/docker-compose.yml` with PostgreSQL service
-- [ ] Start PostgreSQL (Docker or local): confirm it's accepting connections
-- [ ] Create the database: `psql -U postgres -c "CREATE DATABASE ai_dashboard;"`
-- [ ] Verify DB exists: `psql -U postgres -c "\l" | grep ai_dashboard`
+### 0.4 Database Setup (Local — No Docker)
+- [x] Start local PostgreSQL service: `sudo systemctl start postgresql`
+- [x] Confirm PostgreSQL is accepting connections: `psql -U postgres -c "\l"`
+- [x] Create the database: `psql -U postgres -c "CREATE DATABASE ai_dashboard;"`
+- [x] Verify DB exists: `psql -U postgres -c "\l" | grep ai_dashboard`
+- [x] Set `DATABASE_URL` in `.env`: `postgres://<user>:<password>@localhost:5432/ai_dashboard`
 
 ---
 
@@ -45,21 +44,20 @@
 
 ### 1.1 Django Project Initialization
 - [ ] Run `django-admin startproject config backend/` (or manually scaffold)
-- [ ] Restructure `config/` to use a `settings/` subdirectory:
-  - [ ] Create `backend/config/settings/__init__.py`
-  - [ ] Create `backend/config/settings/base.py`
-  - [ ] Create `backend/config/settings/dev.py`
-  - [ ] Create `backend/config/settings/prod.py` (stub)
-- [ ] Update `manage.py` to point to `config.settings.dev`
+- [ ] Verify `backend/config/settings.py` exists (single settings file — no split)
+- [ ] Update `manage.py` to point to `config.settings`
 - [ ] Create `backend/config/wsgi.py`
 - [ ] Create `backend/config/asgi.py`
 - [ ] Update `backend/config/urls.py` to include app URL routes under `/api/`
 - [ ] Run `python manage.py check` — must return **no errors**
 
-### 1.2 Base Settings (`config/settings/base.py`)
+### 1.2 Settings (`config/settings.py`)
 - [ ] Load environment variables using `django-environ`
 - [ ] Set `SECRET_KEY` from env
+- [ ] Set `DEBUG = True` (from env, default `True` for local)
 - [ ] Set `ALLOWED_HOSTS` from env
+- [ ] Set `CORS_ALLOW_ALL_ORIGINS = True` (local dev)
+- [ ] Set `EMAIL_BACKEND` to console backend
 - [ ] Configure `DATABASES` using `DATABASE_URL` from env
 - [ ] Add all required apps to `INSTALLED_APPS`:
   - [ ] `rest_framework`
@@ -76,11 +74,6 @@
 - [ ] Set `OPENAI_API_KEY` from env
 - [ ] Set `OPENAI_MODEL` from env (default `gpt-4o`)
 - [ ] Set `AUTH_USER_MODEL = 'users.User'`
-
-### 1.3 Dev Settings (`config/settings/dev.py`)
-- [ ] Set `DEBUG = True`
-- [ ] Set `CORS_ALLOW_ALL_ORIGINS = True`
-- [ ] Set `EMAIL_BACKEND` to console backend
 
 ---
 
@@ -523,7 +516,9 @@
 
 | Date | Decision | Rationale |
 |------|----------|-----------|
-| _fill in_ | React scaffold: Vite vs CRA | _fill in_ |
+| 2026-04-22 | **No Docker for local dev** | PostgreSQL runs natively on the host machine via `systemctl`. Avoids Docker overhead and complexity for local development. Docker may be reintroduced for staging/production only. |
+| 2026-04-22 | **React scaffold: Vite + React + TypeScript** | CRA is unmaintained. Vite is significantly faster and the current community standard. |
+| 2026-04-22 | **Env package: `django-environ`** | Replaced `python-environ` with `django-environ>=0.11.2` — better maintained, Django-native, and supports `env.db()` for clean `DATABASE_URL` parsing. |
 | _fill in_ | Log storage: DB TextField vs file/S3 | _fill in_ |
 | _fill in_ | Chat streaming: SSE vs full-response | _fill in_ |
 

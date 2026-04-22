@@ -91,97 +91,97 @@
 - [x] Set `AUTH_USER_MODEL = 'users.User'` in base settings
 
 ### 2.3 Serializers
-- [ ] Create `backend/apps/users/serializers.py`:
-  - [ ] `UserSerializer` — exposes `id`, `username`, `email`, `role`, `created_at`
+- [x] Create `backend/apps/users/serializers.py`:
+  - [x] `UserSerializer` — exposes `id`, `username`, `email`, `role`, `created_at`
 
 ### 2.4 Views
-- [ ] Create `backend/apps/users/views.py`:
-  - [ ] `LoginView` — validates credentials, issues JWT access + refresh tokens in httpOnly cookies
-  - [ ] `LogoutView` — blacklists refresh token, clears cookies
-  - [ ] `MeView` — returns serialized current user (requires auth)
+- [x] Create `backend/apps/users/views.py`:
+  - [x] `LoginView` — validates credentials, issues JWT access + refresh tokens in httpOnly cookies
+  - [x] `LogoutView` — blacklists refresh token, clears cookies
+  - [x] `MeView` — returns serialized current user (requires auth)
 
 ### 2.5 URL Routing
-- [ ] Create `backend/apps/users/urls.py`:
-  - [ ] `POST /api/auth/login/`
-  - [ ] `POST /api/auth/logout/`
-  - [ ] `GET  /api/auth/me/`
-  - [ ] `POST /api/auth/token/refresh/`
-- [ ] Include `users.urls` in `config/urls.py`
+- [x] Create `backend/apps/users/urls.py`:
+  - [x] `POST /api/auth/login/`
+  - [x] `POST /api/auth/logout/`
+  - [x] `GET  /api/auth/me/`
+  - [x] `POST /api/auth/token/refresh/`
+- [x] Include `users.urls` in `config/urls.py`
 
 ### 2.6 Admin & Migrations
-- [ ] Register `User` in `backend/apps/users/admin.py` with `list_display`, `search_fields`
-- [ ] Run `python manage.py makemigrations users`
-- [ ] Run `python manage.py migrate`
-- [ ] Create superuser: `python manage.py createsuperuser`
-- [ ] Verify superuser login at `http://localhost:8000/admin/`
+- [x] Register `User` in `backend/apps/users/admin.py` with `list_display`, `search_fields`
+- [x] Run `python manage.py makemigrations users`
+- [x] Run `python manage.py migrate`
+- [x] Create superuser: `python manage.py createsuperuser`
+- [x] Verify superuser login at `http://localhost:8000/admin/`
 
 ### 2.7 Auth Tests
-- [ ] Write `backend/apps/users/tests.py`:
-  - [ ] `test_login_with_valid_credentials_returns_200`
-  - [ ] `test_login_with_invalid_credentials_returns_401`
-  - [ ] `test_me_endpoint_requires_auth`
-  - [ ] `test_me_returns_correct_user_data`
-- [ ] Run: `python manage.py test apps.users --verbosity=2` — all pass
+- [x] Write `backend/apps/users/tests.py`:
+  - [x] `test_login_with_valid_credentials_returns_200`
+  - [x] `test_login_with_invalid_credentials_returns_401`
+  - [x] `test_me_endpoint_requires_auth`
+  - [x] `test_me_returns_correct_user_data`
+- [x] Run: `python manage.py test apps.users --verbosity=2` — all pass
 
 ---
 
 ## 💬 SECTION 3 — `apps/chat` (Sessions & Messages)
 
 ### 3.1 App Creation
-- [ ] Run `python manage.py startapp chat backend/apps/chat`
-- [ ] Update `apps.py` with correct `name = 'apps.chat'`
+- [x] Run `python manage.py startapp chat backend/apps/chat`
+- [x] Update `apps.py` with correct `name = 'apps.chat'`
 
 ### 3.2 Models
-- [ ] Create `backend/apps/chat/models.py`:
-  - [ ] `ChatSession` model:
-    - [ ] `id` — `UUIDField(primary_key=True, default=uuid.uuid4)`
-    - [ ] `user` — `ForeignKey(User, on_delete=CASCADE)`
-    - [ ] `title` — `CharField(max_length=255, blank=True)`
-    - [ ] `context_type` — `CharField(max_length=20, default='general')` — choices: `general`, `code`, `logs`
-    - [ ] `created_at` — `DateTimeField(auto_now_add=True)`
-    - [ ] `meta` — `JSONField(default=dict)`
-  - [ ] `Message` model:
-    - [ ] `session` — `ForeignKey(ChatSession, related_name='messages', on_delete=CASCADE)`
-    - [ ] `role` — `CharField(max_length=20, choices=ROLES)` — `user`, `assistant`, `system`
-    - [ ] `content` — `TextField()`
-    - [ ] `tool_calls` — `JSONField(null=True, blank=True)`
-    - [ ] `tokens_used` — `IntegerField(default=0)`
-    - [ ] `created_at` — `DateTimeField(auto_now_add=True)`
+- [x] Create `backend/apps/chat/models.py`:
+  - [x] `ChatSession` model:
+    - [x] `id` — `UUIDField(primary_key=True, default=uuid.uuid4)`
+    - [x] `user` — `ForeignKey(User, on_delete=CASCADE)`
+    - [x] `title` — `CharField(max_length=255, blank=True)`
+    - [x] `context_type` — `CharField(max_length=20, default='general')` — choices: `general`, `code`, `logs`
+    - [x] `created_at` — `DateTimeField(auto_now_add=True)`
+    - [x] `meta` — `JSONField(default=dict)`
+  - [x] `Message` model:
+    - [x] `session` — `ForeignKey(ChatSession, related_name='messages', on_delete=CASCADE)`
+    - [x] `role` — `CharField(max_length=20, choices=ROLES)` — `user`, `assistant`, `system`
+    - [x] `content` — `TextField()`
+    - [x] `tool_calls` — `JSONField(null=True, blank=True)`
+    - [x] `tokens_used` — `IntegerField(default=0)`
+    - [x] `created_at` — `DateTimeField(auto_now_add=True)`
 
 ### 3.3 Serializers
-- [ ] Create `backend/apps/chat/serializers.py`:
-  - [ ] `MessageSerializer` — all fields
-  - [ ] `ChatSessionSerializer` — all fields + `message_count` annotation
+- [x] Create `backend/apps/chat/serializers.py`:
+  - [x] `MessageSerializer` — all fields
+  - [x] `ChatSessionSerializer` — all fields + `message_count` annotation
 
 ### 3.4 Views
-- [ ] Create `backend/apps/chat/views.py`:
-  - [ ] `ChatSessionListCreateView` — `GET` (list sessions for user), `POST` (create session)
-  - [ ] `ChatSessionDetailView` — `GET` (retrieve), `DELETE` (destroy) — scoped to `request.user`
-  - [ ] `MessageListCreateView`:
-    - [ ] `GET` — return all messages for session (ordered by `created_at`)
-    - [ ] `POST` — accept `{ content }`, call `OpenAIClient.chat_completion()`, save user + assistant messages, return assistant message
+- [x] Create `backend/apps/chat/views.py`:
+  - [x] `ChatSessionListCreateView` — `GET` (list sessions for user), `POST` (create session)
+  - [x] `ChatSessionDetailView` — `GET` (retrieve), `DELETE` (destroy) — scoped to `request.user`
+  - [x] `MessageListCreateView`:
+    - [x] `GET` — return all messages for session (ordered by `created_at`)
+    - [x] `POST` — accept `{ content }`, call `OpenAIClient.chat_completion()`, save user + assistant messages, return assistant message
 
 ### 3.5 URL Routing
-- [ ] Create `backend/apps/chat/urls.py`:
-  - [ ] `POST/GET /api/chat/sessions/`
-  - [ ] `GET/DELETE /api/chat/sessions/<uuid:id>/`
-  - [ ] `POST/GET /api/chat/sessions/<uuid:id>/messages/`
-- [ ] Include `chat.urls` in `config/urls.py`
+- [x] Create `backend/apps/chat/urls.py`:
+  - [x] `POST/GET /api/chat/sessions/`
+  - [x] `GET/DELETE /api/chat/sessions/<uuid:id>/`
+  - [x] `POST/GET /api/chat/sessions/<uuid:id>/messages/`
+- [x] Include `chat.urls` in `config/urls.py`
 
 ### 3.6 Admin & Migrations
-- [ ] Register `ChatSession` and `Message` in `backend/apps/chat/admin.py`
-- [ ] Run `python manage.py makemigrations chat`
-- [ ] Run `python manage.py migrate`
+- [x] Register `ChatSession` and `Message` in `backend/apps/chat/admin.py`
+- [x] Run `python manage.py makemigrations chat`
+- [x] Run `python manage.py migrate`
 
 ### 3.7 Chat Tests
-- [ ] Write `backend/apps/chat/tests.py`:
-  - [ ] `test_create_session_requires_auth`
-  - [ ] `test_create_session_returns_uuid`
-  - [ ] `test_list_sessions_only_returns_own_sessions`
-  - [ ] `test_delete_session_removes_messages`
-  - [ ] `test_send_message_saves_user_and_assistant_turns` (mock OpenAI)
-  - [ ] `test_message_history_returned_in_order`
-- [ ] Run: `python manage.py test apps.chat --verbosity=2` — all pass
+- [x] Write `backend/apps/chat/tests.py`:
+  - [x] `test_create_session_requires_auth`
+  - [x] `test_create_session_returns_uuid`
+  - [x] `test_list_sessions_only_returns_own_sessions`
+  - [x] `test_delete_session_removes_messages`
+  - [x] `test_send_message_saves_user_and_assistant_turns` (mock OpenAI)
+  - [x] `test_message_history_returned_in_order`
+- [x] Run: `python manage.py test apps.chat --verbosity=2` — all pass
 
 ---
 

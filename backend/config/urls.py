@@ -22,7 +22,7 @@ urlpatterns = [
     # App URLs will be included here once created
     path('api/', include([
         path('auth/', include('apps.users.urls')),
-        # path('chat/', include('apps.chat.urls')),
+        path('chat/', include('apps.chat.urls')),
         # path('logs/', include('apps.logs.urls')),
     ])),
 ]

@@ -2,4 +2,4 @@ from django.apps import AppConfig
 
 
 class AiLayerConfig(AppConfig):
-    name = 'ai_layer'
+    name = 'apps.ai_layer'

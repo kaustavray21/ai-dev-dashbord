@@ -43,52 +43,52 @@
 ## 🐍 SECTION 1 — Django Backend Scaffold
 
 ### 1.1 Django Project Initialization
-- [ ] Run `django-admin startproject config backend/` (or manually scaffold)
-- [ ] Verify `backend/config/settings.py` exists (single settings file — no split)
-- [ ] Update `manage.py` to point to `config.settings`
-- [ ] Create `backend/config/wsgi.py`
-- [ ] Create `backend/config/asgi.py`
-- [ ] Update `backend/config/urls.py` to include app URL routes under `/api/`
-- [ ] Run `python manage.py check` — must return **no errors**
+- [x] Run `django-admin startproject config backend/` (or manually scaffold)
+- [x] Verify `backend/config/settings.py` exists (single settings file — no split)
+- [x] Update `manage.py` to point to `config.settings`
+- [x] Create `backend/config/wsgi.py`
+- [x] Create `backend/config/asgi.py`
+- [x] Update `backend/config/urls.py` to include app URL routes under `/api/`
+- [x] Run `python manage.py check` — must return **no errors**
 
 ### 1.2 Settings (`config/settings.py`)
-- [ ] Load environment variables using `django-environ`
-- [ ] Set `SECRET_KEY` from env
-- [ ] Set `DEBUG = True` (from env, default `True` for local)
-- [ ] Set `ALLOWED_HOSTS` from env
-- [ ] Set `CORS_ALLOW_ALL_ORIGINS = True` (local dev)
-- [ ] Set `EMAIL_BACKEND` to console backend
-- [ ] Configure `DATABASES` using `DATABASE_URL` from env
-- [ ] Add all required apps to `INSTALLED_APPS`:
-  - [ ] `rest_framework`
-  - [ ] `corsheaders`
-  - [ ] `rest_framework_simplejwt`
-  - [ ] `apps.users`
-  - [ ] `apps.chat`
-  - [ ] `apps.logs`
-  - [ ] `apps.code_analysis`
-  - [ ] `apps.commands`
-  - [ ] `apps.ai_layer`
-- [ ] Add `corsheaders.middleware.CorsMiddleware` to `MIDDLEWARE` (before `CommonMiddleware`)
-- [ ] Configure `REST_FRAMEWORK` to use JWT as default authentication
-- [ ] Set `OPENAI_API_KEY` from env
-- [ ] Set `OPENAI_MODEL` from env (default `gpt-4o`)
-- [ ] Set `AUTH_USER_MODEL = 'users.User'`
+- [x] Load environment variables using `django-environ`
+- [x] Set `SECRET_KEY` from env
+- [x] Set `DEBUG = True` (from env, default `True` for local)
+- [x] Set `ALLOWED_HOSTS` from env
+- [x] Set `CORS_ALLOW_ALL_ORIGINS = True` (local dev)
+- [x] Set `EMAIL_BACKEND` to console backend
+- [x] Configure `DATABASES` using `DATABASE_URL` from env
+- [x] Add all required apps to `INSTALLED_APPS`:
+  - [x] `rest_framework`
+  - [x] `corsheaders`
+  - [x] `rest_framework_simplejwt`
+  - [x] `apps.users`
+  - [x] `apps.chat`
+  - [x] `apps.logs`
+  - [x] `apps.code_analysis`
+  - [x] `apps.commands`
+  - [x] `apps.ai_layer`
+- [x] Add `corsheaders.middleware.CorsMiddleware` to `MIDDLEWARE` (before `CommonMiddleware`)
+- [x] Configure `REST_FRAMEWORK` to use JWT as default authentication
+- [x] Set `OPENAI_API_KEY` from env
+- [x] Set `OPENAI_MODEL` from env (default `gpt-4o`)
+- [x] Set `AUTH_USER_MODEL = 'users.User'`
 
 ---
 
 ## 👤 SECTION 2 — `apps/users` (Authentication & RBAC)
 
 ### 2.1 App Creation
-- [ ] Run `python manage.py startapp users backend/apps/users`
-- [ ] Update `apps.py` with correct `name = 'apps.users'`
+- [x] Run `python manage.py startapp users backend/apps/users`
+- [x] Update `apps.py` with correct `name = 'apps.users'`
 
 ### 2.2 User Model
-- [ ] Create `backend/apps/users/models.py`:
-  - [ ] Extend `AbstractUser`
-  - [ ] Add `role` field with `TextChoices`: `admin`, `developer`, `viewer`
-  - [ ] Add `created_at = DateTimeField(auto_now_add=True)`
-- [ ] Set `AUTH_USER_MODEL = 'users.User'` in base settings
+- [x] Create `backend/apps/users/models.py`:
+  - [x] Extend `AbstractUser`
+  - [x] Add `role` field with `TextChoices`: `admin`, `developer`, `viewer`
+  - [x] Add `created_at = DateTimeField(auto_now_add=True)`
+- [x] Set `AUTH_USER_MODEL = 'users.User'` in base settings
 
 ### 2.3 Serializers
 - [ ] Create `backend/apps/users/serializers.py`:

@@ -1,7 +1,7 @@
 from django.urls import reverse
 from rest_framework import status
 from rest_framework.test import APITestCase
-from apps.users.models import User
+from users.models import User
 from .models import ChatSession, Message
 from unittest.mock import patch
 

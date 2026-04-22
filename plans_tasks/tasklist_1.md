@@ -188,50 +188,50 @@
 ## 📋 SECTION 4 — `apps/logs` (Log Upload & Analysis)
 
 ### 4.1 App Creation
-- [ ] Run `python manage.py startapp logs backend/apps/logs`
-- [ ] Update `apps.py` with correct `name = 'apps.logs'`
+- [x] Run `python manage.py startapp logs backend/apps/logs`
+- [x] Update `apps.py` with correct `name = 'apps.logs'`
 
 ### 4.2 Model
-- [ ] Create `backend/apps/logs/models.py`:
-  - [ ] `LogFile` model:
-    - [ ] `user` — `ForeignKey(User, on_delete=CASCADE)`
-    - [ ] `name` — `CharField(max_length=255)`
-    - [ ] `content` — `TextField()` (raw log text)
-    - [ ] `file_size` — `IntegerField()`
-    - [ ] `analysis` — `JSONField(null=True)` (AI-generated)
-    - [ ] `analyzed_at` — `DateTimeField(null=True)`
-    - [ ] `uploaded_at` — `DateTimeField(auto_now_add=True)`
+- [x] Create `backend/apps/logs/models.py`:
+  - [x] `LogFile` model:
+    - [x] `user` — `ForeignKey(User, on_delete=CASCADE)`
+    - [x] `name` — `CharField(max_length=255)`
+    - [x] `content` — `TextField()` (raw log text)
+    - [x] `file_size` — `IntegerField()`
+    - [x] `analysis` — `JSONField(null=True)` (AI-generated)
+    - [x] `analyzed_at` — `DateTimeField(null=True)`
+    - [x] `uploaded_at` — `DateTimeField(auto_now_add=True)`
 
 ### 4.3 Serializers
-- [ ] Create `backend/apps/logs/serializers.py`:
-  - [ ] `LogFileSerializer` — all fields, `content` write-only on upload
+- [x] Create `backend/apps/logs/serializers.py`:
+  - [x] `LogFileSerializer` — all fields, `content` write-only on upload
 
 ### 4.4 Views
-- [ ] Create `backend/apps/logs/views.py`:
-  - [ ] `LogUploadView` — `POST /api/logs/upload/` — accept multipart file, read text, store in `content` + `file_size`
-  - [ ] `LogListView` — `GET /api/logs/` — list user's log files (exclude `content` for performance)
-  - [ ] `LogAnalysisView` — `GET /api/logs/<id>/analysis/` — if `analysis` already cached return it, else run `LogAnalyzer` + `OpenAIClient` then cache
+- [x] Create `backend/apps/logs/views.py`:
+  - [x] `LogUploadView` — `POST /api/logs/upload/` — accept multipart file, read text, store in `content` + `file_size`
+  - [x] `LogListView` — `GET /api/logs/` — list user's log files (exclude `content` for performance)
+  - [x] `LogAnalysisView` — `GET /api/logs/<id>/analysis/` — if `analysis` already cached return it, else run `LogAnalyzer` + `OpenAIClient` then cache
 
 ### 4.5 URL Routing
-- [ ] Create `backend/apps/logs/urls.py`:
-  - [ ] `POST /api/logs/upload/`
-  - [ ] `GET  /api/logs/`
-  - [ ] `GET  /api/logs/<int:id>/analysis/`
-- [ ] Include `logs.urls` in `config/urls.py`
+- [x] Create `backend/apps/logs/urls.py`:
+  - [x] `POST /api/logs/upload/`
+  - [x] `GET  /api/logs/`
+  - [x] `GET  /api/logs/<int:id>/analysis/`
+- [x] Include `logs.urls` in `config/urls.py`
 
 ### 4.6 Admin & Migrations
-- [ ] Register `LogFile` in `backend/apps/logs/admin.py`
-- [ ] Run `python manage.py makemigrations logs`
-- [ ] Run `python manage.py migrate`
+- [x] Register `LogFile` in `backend/apps/logs/admin.py`
+- [x] Run `python manage.py makemigrations logs`
+- [x] Run `python manage.py migrate`
 
 ### 4.7 Log Tests
-- [ ] Write `backend/apps/logs/tests.py`:
-  - [ ] `test_upload_log_file_stores_content`
-  - [ ] `test_upload_requires_auth`
-  - [ ] `test_list_logs_returns_only_own_files`
-  - [ ] `test_analysis_endpoint_returns_cached_result_if_exists`
-  - [ ] `test_analysis_calls_openai_on_first_request` (mock OpenAI)
-- [ ] Run: `python manage.py test apps.logs --verbosity=2` — all pass
+- [x] Write `backend/apps/logs/tests.py`:
+  - [x] `test_upload_log_file_stores_content`
+  - [x] `test_upload_requires_auth`
+  - [x] `test_list_logs_returns_only_own_files`
+  - [x] `test_analysis_endpoint_returns_cached_result_if_exists`
+  - [x] `test_analysis_calls_openai_on_first_request` (mock OpenAI)
+- [x] Run: `python manage.py test apps.logs --verbosity=2` — all pass
 
 ---
 

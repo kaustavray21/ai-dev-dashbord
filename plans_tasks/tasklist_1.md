@@ -238,32 +238,32 @@
 ## 🤖 SECTION 5 — `services/` (Business Logic Layer)
 
 ### 5.1 `services/contracts.py`
-- [ ] Create `backend/services/__init__.py`
-- [ ] Create `backend/services/contracts.py`:
-  - [ ] Define `IOpenAIClient(Protocol)`:
-    - [ ] `chat_completion(messages, tools, stream) -> dict`
-    - [ ] `embed_text(text) -> list[float]`
-    - [ ] `embed_batch(texts) -> list[list[float]]`
+- [x] Create `backend/services/__init__.py`
+- [x] Create `backend/services/contracts.py`:
+  - [x] Define `IOpenAIClient(Protocol)`:
+    - [x] `chat_completion(messages, tools, stream) -> dict`
+    - [x] `embed_text(text) -> list[float]`
+    - [x] `embed_batch(texts) -> list[list[float]]`
 
 ### 5.2 `services/openai_client.py`
-- [ ] Create `backend/services/openai_client.py`:
-  - [ ] `OpenAIClient` class:
-    - [ ] `__init__` — loads `api_key` and `model` from Django settings
-    - [ ] `chat_completion(messages, tools=None, stream=False) -> dict` — base AI call method
-    - [ ] `embed_text(text: str) -> list[float]` — single embedding with `text-embedding-3-small`
-    - [ ] `embed_batch(texts: list[str]) -> list[list[float]]` — batch embedding (scaffold for Phase 2)
-    - [ ] Retry logic: catch `openai.RateLimitError`, backoff 2s/4s/8s, max 3 retries
-    - [ ] Log `tokens_used` from each response to a Django logger
-  - [ ] Verify `OpenAIClient` satisfies `IOpenAIClient` protocol
+- [x] Create `backend/services/openai_client.py`:
+  - [x] `OpenAIClient` class:
+    - [x] `__init__` — loads `api_key` and `model` from Django settings
+    - [x] `chat_completion(messages, tools=None, stream=False) -> dict` — base AI call method
+    - [x] `embed_text(text: str) -> list[float]` — single embedding with `text-embedding-3-small`
+    - [x] `embed_batch(texts: list[str]) -> list[list[float]]` — batch embedding (scaffold for Phase 2)
+    - [x] Retry logic: catch `openai.RateLimitError`, backoff 2s/4s/8s, max 3 retries
+    - [x] Log `tokens_used` from each response to a Django logger
+  - [x] Verify `OpenAIClient` satisfies `IOpenAIClient` protocol
 
 ### 5.3 `services/log_parser.py`
-- [ ] Create `backend/services/log_parser.py`:
-  - [ ] `LogAnalyzer` class:
-    - [ ] `ERROR_PATTERNS` — 4 regex patterns from blueprint
-    - [ ] `extract_errors(log_text: str) -> list[dict]` — pure regex, returns list of matches with line numbers
-    - [ ] `summarize_for_ai(log_text: str, max_chars=8000) -> str` — trim to most relevant portion (focus on error lines ± context)
-    - [ ] `build_analysis_prompt(log_text: str) -> list[dict]` — returns OpenAI `messages` array (system + user)
-    - [ ] `analyze(log_text: str, openai_client) -> dict` — orchestrates: extract → summarize → prompt → call → return structured result
+- [x] Create `backend/services/log_parser.py`:
+  - [x] `LogAnalyzer` class:
+    - [x] `ERROR_PATTERNS` — 4 regex patterns from blueprint
+    - [x] `extract_errors(log_text: str) -> list[dict]` — pure regex, returns list of matches with line numbers
+    - [x] `summarize_for_ai(log_text: str, max_chars=8000) -> str` — trim to most relevant portion (focus on error lines ± context)
+    - [x] `build_analysis_prompt(log_text: str) -> list[dict]` — returns OpenAI `messages` array (system + user)
+    - [x] `analyze(log_text: str, openai_client) -> dict` — orchestrates: extract → summarize → prompt → call → return structured result
 
 ---
 
